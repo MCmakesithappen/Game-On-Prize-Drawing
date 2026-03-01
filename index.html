@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game On! Prize Giveaway</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root {
+    --neon-yellow: #FFE600;
+    --neon-pink: #FF2D78;
+    --neon-cyan: #00F5FF;
+    --dark-bg: #0A0A1A;
+    --card-bg: #12122A;
+    --purple: #7B2FBE;
+    --green: #00FF88;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark-bg);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes gridMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(40px); }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .header h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(16px, 4vw, 28px);
+    color: var(--neon-yellow);
+    text-shadow:
+      0 0 10px var(--neon-yellow),
+      0 0 30px var(--neon-yellow),
+      0 0 60px rgba(255,230,0,0.4);
+    line-height: 1.6;
+    margin-bottom: 10px;
+    animation: flicker 4s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 95%, 100% { opacity: 1; }
+    96% { opacity: 0.8; }
+    97% { opacity: 1; }
+    98% { opacity: 0.7; }
+  }
+
+  .header p {
+    color: var(--neon-cyan);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .prize-badges {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+  }
+
+  .prize-badge {
+    background: linear-gradient(135deg, var(--purple), var(--neon-pink));
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(255,45,120,0.5);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .prize-badge:nth-child(2) { animation-delay: 0.5s; }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(255,45,120,0.5); }
+    50% { transform: scale(1.03); box-shadow: 0 0 25px rgba(255,45,120,0.8); }
+  }
+
+  /* Entry Section */
+  .entry-section {
+    background: var(--card-bg);
+    border: 2px solid rgba(0,245,255,0.3);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 30px rgba(0,245,255,0.1), inset 0 0 30px rgba(0,0,0,0.3);
+  }
+
+  .section-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    color: var(--neon-cyan);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::before {
+    content: '▶';
+    color: var(--neon-yellow);
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .input-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .name-input {
+    flex: 1;
+    min-width: 200px;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(0,245,255,0.4);
+    border-radius: 8px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 14px 18px;
+    outline: none;
+    transition: all 0.3s;
+  }
+
+  .name-input::placeholder { color: rgba(255,255,255,0.3); }
+
+  .name-input:focus {
+    border-color: var(--neon-cyan);
+    background: rgba(0,245,255,0.05);
+    box-shadow: 0 0 20px rgba(0,245,255,0.2);
+  }
+
+  .btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .btn-add {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--purple));
+    color: var(--dark-bg);
+    box-shadow: 0 0 20px rgba(0,245,255,0.4);
+  }
+
+  .btn-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(0,245,255,0.6);
+  }
+
+  .btn-add:active { transform: translateY(0); }
+
+  /* Players list */
+  .players-section {
+    background: var(--card-bg);
+    border: 2px solid rgba(123,47,190,0.4);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 30px rgba(123,47,190,0.1);
+  }
+
+  .players-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    min-height: 60px;
+  }
+
+  .player-tag {
+    background: rgba(123,47,190,0.3);
+    border: 1px solid rgba(123,47,190,0.6);
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 8px 14px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: tagIn 0.3s ease;
+    transition: all 0.2s;
+  }
+
+  @keyframes tagIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .player-tag:hover { background: rgba(123,47,190,0.5); }
+
+  .remove-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .remove-btn:hover { color: var(--neon-pink); }
+
+  .player-count {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 12px;
+  }
+
+  .empty-state {
+    color: rgba(255,255,255,0.2);
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+  }
+
+  /* Draw section */
+  .draw-section {
+    background: var(--card-bg);
+    border: 2px solid rgba(255,230,0,0.3);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255,230,0,0.1);
+  }
+
+  .draw-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .btn-draw {
+    background: linear-gradient(135deg, var(--neon-yellow), #FF8C00);
+    color: var(--dark-bg);
+    font-size: 11px;
+    padding: 16px 30px;
+    box-shadow: 0 0 25px rgba(255,230,0,0.5);
+  }
+
+  .btn-draw:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 40px rgba(255,230,0,0.7);
+  }
+
+  .btn-draw:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-reset {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 9px;
+  }
+
+  .btn-reset:hover {
+    background: rgba(255,45,120,0.2);
+    color: var(--neon-pink);
+    border-color: var(--neon-pink);
+  }
+
+  /* Winner display */
+  .winner-display {
+    display: none;
+    margin-top: 30px;
+  }
+
+  .winner-display.show { display: block; }
+
+  .winner-card {
+    background: linear-gradient(135deg, rgba(255,230,0,0.1), rgba(255,45,120,0.1));
+    border: 2px solid var(--neon-yellow);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 40px rgba(255,230,0,0.3);
+    animation: winnerReveal 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .winner-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,230,0,0.05) 50%, transparent 70%);
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes winnerReveal {
+    from { transform: scale(0.8) rotateY(20deg); opacity: 0; }
+    to { transform: scale(1) rotateY(0deg); opacity: 1; }
+  }
+
+  .winner-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: var(--neon-yellow);
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    opacity: 0.8;
+  }
+
+  .winner-prize {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: var(--neon-cyan);
+    margin-bottom: 15px;
+  }
+
+  .winner-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(14px, 4vw, 24px);
+    color: white;
+    text-shadow: 0 0 20px white, 0 0 40px rgba(255,230,0,0.5);
+    line-height: 1.4;
+    word-break: break-word;
+  }
+
+  .confetti-emoji {
+    font-size: 30px;
+    animation: bounce 0.5s ease infinite alternate;
+    display: inline-block;
+  }
+
+  @keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-8px); }
+  }
+
+  /* Slot machine animation */
+  .slot-display {
+    display: none;
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(12px, 3vw, 18px);
+    color: var(--neon-green);
+    background: rgba(0,0,0,0.5);
+    border: 2px solid var(--neon-cyan);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    min-height: 70px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .slot-display.spinning {
+    display: flex;
+    animation: borderPulse 0.3s infinite;
+    color: var(--neon-yellow);
+  }
+
+  @keyframes borderPulse {
+    0%, 100% { border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(0,245,255,0.3); }
+    50% { border-color: var(--neon-pink); box-shadow: 0 0 20px rgba(255,45,120,0.5); }
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--green);
+    color: var(--dark-bg);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    z-index: 100;
+    white-space: nowrap;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+  @media (max-width: 500px) {
+    .input-row { flex-direction: column; }
+    .btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>🎮 GAME ON!</h1>
+    <p>Prize Giveaway Drawing</p>
+    <div class="prize-badges">
+      <div class="prize-badge">🏆 Prize 1</div>
+      <div class="prize-badge">🎯 Prize 2</div>
+    </div>
+  </div>
+
+  <!-- Entry Section -->
+  <div class="entry-section">
+    <div class="section-title">Enter Your Name to Play</div>
+    <div class="input-row">
+      <input
+        type="text"
+        class="name-input"
+        id="nameInput"
+        placeholder="Type your name here..."
+        maxlength="40"
+        autocomplete="off"
+      />
+      <button class="btn btn-add" onclick="addPlayer()">+ Add Me!</button>
+    </div>
+  </div>
+
+  <!-- Players List -->
+  <div class="players-section">
+    <div class="section-title">Players in the Drawing</div>
+    <div class="players-grid" id="playersList">
+      <div class="empty-state">No players yet — be the first to enter! 🎮</div>
+    </div>
+    <div class="player-count" id="playerCount"></div>
+  </div>
+
+  <!-- Draw Section -->
+  <div class="draw-section">
+    <div class="section-title" style="justify-content:center;">🎰 Draw a Winner</div>
+
+    <div class="slot-display" id="slotDisplay">...</div>
+
+    <div class="draw-controls">
+      <button class="btn btn-draw" id="draw1Btn" onclick="drawWinner(1)" disabled>
+        🏆 Draw Prize 1
+      </button>
+      <button class="btn btn-draw" id="draw2Btn" onclick="drawWinner(2)" disabled>
+        🎯 Draw Prize 2
+      </button>
+    </div>
+
+    <div class="winner-display" id="winnerDisplay"></div>
+
+    <div style="margin-top: 20px;">
+      <button class="btn btn-reset" onclick="resetAll()">↺ Reset Everything</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let players = [];
+  let winners = [];
+  let isAnimating = false;
+
+  const nameInput = document.getElementById('nameInput');
+  const playersList = document.getElementById('playersList');
+  const playerCount = document.getElementById('playerCount');
+  const draw1Btn = document.getElementById('draw1Btn');
+  const draw2Btn = document.getElementById('draw2Btn');
+  const slotDisplay = document.getElementById('slotDisplay');
+  const winnerDisplay = document.getElementById('winnerDisplay');
+
+  nameInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') addPlayer();
+  });
+
+  function addPlayer() {
+    const name = nameInput.value.trim();
+    if (!name) return;
+    if (players.includes(name)) {
+      showToast('⚠️ Name already entered!');
+      return;
+    }
+    players.push(name);
+    nameInput.value = '';
+    nameInput.focus();
+    renderPlayers();
+    updateDrawButtons();
+    showToast('✅ ' + name + ' is in the drawing!');
+  }
+
+  function removePlayer(name) {
+    players = players.filter(p => p !== name);
+    renderPlayers();
+    updateDrawButtons();
+  }
+
+  function renderPlayers() {
+    if (players.length === 0) {
+      playersList.innerHTML = '<div class="empty-state">No players yet — be the first to enter! 🎮</div>';
+      playerCount.textContent = '';
+      return;
+    }
+    playersList.innerHTML = players.map(name => `
+      <div class="player-tag">
+        ${name}
+        <button class="remove-btn" onclick="removePlayer('${name.replace(/'/g, "\\'")}')" title="Remove">✕</button>
+      </div>
+    `).join('');
+    playerCount.textContent = players.length + ' player' + (players.length === 1 ? '' : 's') + ' entered';
+  }
+
+  function updateDrawButtons() {
+    const available = players.filter(p => !winners.includes(p));
+    draw1Btn.disabled = available.length === 0 || isAnimating || winners.length >= 1;
+    draw2Btn.disabled = available.length === 0 || isAnimating || winners.length >= 2 || winners.length < 1;
+  }
+
+  function drawWinner(prizeNum) {
+    const available = players.filter(p => !winners.includes(p));
+    if (available.length === 0 || isAnimating) return;
+
+    isAnimating = true;
+    draw1Btn.disabled = true;
+    draw2Btn.disabled = true;
+
+    // Slot machine animation
+    slotDisplay.classList.add('spinning');
+    let count = 0;
+    const totalFrames = 30;
+    const interval = setInterval(() => {
+      const randomName = available[Math.floor(Math.random() * available.length)];
+      slotDisplay.textContent = randomName;
+      count++;
+      if (count >= totalFrames) {
+        clearInterval(interval);
+        slotDisplay.classList.remove('spinning');
+        slotDisplay.style.display = 'none';
+
+        // Pick real winner
+        const winner = available[Math.floor(Math.random() * available.length)];
+        winners.push(winner);
+        isAnimating = false;
+        showWinner(winner, prizeNum);
+        updateDrawButtons();
+      }
+    }, 80);
+  }
+
+  function showWinner(name, prizeNum) {
+    const prizeLabel = prizeNum === 1 ? '🏆 PRIZE 1 WINNER' : '🎯 PRIZE 2 WINNER';
+    const existing = winnerDisplay.innerHTML;
+    const newCard = `
+      <div class="winner-card">
+        <div class="winner-label">${prizeLabel}</div>
+        <div class="winner-name">
+          <span class="confetti-emoji">🎉</span>
+          ${name}
+          <span class="confetti-emoji" style="animation-delay:0.2s">🎉</span>
+        </div>
+      </div>
+    `;
+    winnerDisplay.innerHTML = existing + newCard;
+    winnerDisplay.classList.add('show');
+    showToast('🎊 ' + name + ' wins Prize ' + prizeNum + '!');
+  }
+
+  function resetAll() {
+    if (!confirm('Reset everything and start a new drawing?')) return;
+    players = [];
+    winners = [];
+    winnerDisplay.innerHTML = '';
+    winnerDisplay.classList.remove('show');
+    slotDisplay.style.display = 'none';
+    slotDisplay.classList.remove('spinning');
+    renderPlayers();
+    updateDrawButtons();
+    showToast('↺ Reset! Ready for a new drawing.');
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+</script>
+</body>
+</html>
