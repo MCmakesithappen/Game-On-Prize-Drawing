@@ -579,94 +579,55 @@
     return initializeApp(config);
   }
 
+  /* ── Hardcoded Firebase Config ── */
+  const FIREBASE_CONFIG = {
+    apiKey:      "AIzaSyCcB6t83cfOULUXixRcYWl9vsBdADWxn3s",
+    projectId:   "game-on-giveaway",
+    databaseURL: "https://game-on-giveaway-default-rtdb.firebaseio.com"
+  };
+
   /* ── State ── */
-  let players     = {};   // { fbKey: name }
-  let winners     = [];   // [ name, name ]
+  let players     = {};
+  let winners     = [];
   let isAnimating = false;
   let db          = null;
-  let isPresenter = false;
-  let isFirebase  = false;
+  let isPresenter = true;
+  let isFirebase  = true;
 
   /* ── DOM ── */
-  const nameInput       = document.getElementById('nameInput');
-  const playersList     = document.getElementById('playersList');
-  const playerCount     = document.getElementById('playerCount');
-  const draw1Btn        = document.getElementById('draw1Btn');
-  const draw2Btn        = document.getElementById('draw2Btn');
-  const slotDisplay     = document.getElementById('slotDisplay');
-  const winnerArea      = document.getElementById('winnerArea');
-  const statusDot       = document.getElementById('statusDot');
-  const statusText      = document.getElementById('statusText');
-  const drawCard        = document.getElementById('drawCard');
+  const nameInput         = document.getElementById('nameInput');
+  const playersList       = document.getElementById('playersList');
+  const playerCount       = document.getElementById('playerCount');
+  const draw1Btn          = document.getElementById('draw1Btn');
+  const draw2Btn          = document.getElementById('draw2Btn');
+  const slotDisplay       = document.getElementById('slotDisplay');
+  const winnerArea        = document.getElementById('winnerArea');
+  const statusDot         = document.getElementById('statusDot');
+  const statusText        = document.getElementById('statusText');
+  const drawCard          = document.getElementById('drawCard');
   const participantBanner = document.getElementById('participantBanner');
 
   nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') addPlayer(); });
 
   /* ── Exposed to onclick ── */
-  window.connectFirebase = connectFirebase;
-  window.goLocal         = goLocal;
-  window.addPlayer       = addPlayer;
-  window.removePlayer    = removePlayer;
-  window.drawWinner      = drawWinner;
-  window.resetAll        = resetAll;
+  window.addPlayer   = addPlayer;
+  window.removePlayer= removePlayer;
+  window.drawWinner  = drawWinner;
+  window.resetAll    = resetAll;
 
-  /* ─────────────────────────────────────────
-     SETUP
-  ───────────────────────────────────────── */
-  function connectFirebase() {
-    const apiKey    = document.getElementById('cfgApiKey').value.trim();
-    const projectId = document.getElementById('cfgProjectId').value.trim();
-    const dbUrl     = document.getElementById('cfgDbUrl').value.trim();
-
-    if (!apiKey || !projectId || !dbUrl) { toast('⚠️ Fill in all three fields!'); return; }
-
+  /* ── Auto-launch with hardcoded config ── */
+  (function autoLaunch() {
     try {
-      const app = safeInitApp({ apiKey, projectId, databaseURL: dbUrl });
+      const app = safeInitApp(FIREBASE_CONFIG);
       db = getDatabase(app);
-      isFirebase  = true;
-      isPresenter = true;
-
-      localStorage.setItem('goFB', JSON.stringify({ apiKey, projectId, dbUrl }));
-
-      showApp();
-      setStatus('live', 'Live! Participants can enter names now 🎉');
+      document.getElementById('setupScreen').style.display = 'none';
+      document.getElementById('mainApp').style.display = 'block';
+      setStatus('live', 'Live! Participants can enter names now \u{1F389}');
       listenFirebase();
     } catch(err) {
-      toast('❌ Firebase error — check config values');
-      console.error(err);
+      console.error('Firebase launch error:', err);
+      setStatus('error', 'Connection error — refresh and try again');
     }
-  }
-
-  function goLocal() {
-    isFirebase  = false;
-    isPresenter = true;
-    showApp();
-    setStatus('local', 'Local mode — names won\'t sync across devices');
-  }
-
-  function showApp() {
-    document.getElementById('setupScreen').style.display = 'none';
-    document.getElementById('mainApp').style.display = 'block';
-    if (!isPresenter) {
-      drawCard.style.display = 'none';
-      participantBanner.style.display = 'block';
-    }
-  }
-
-  /* Auto-reconnect for participants on same device */
-  (function tryAutoJoin() {
-    const saved = localStorage.getItem('goFB');
-    if (!saved) return;
-    try {
-      const { apiKey, projectId, dbUrl } = JSON.parse(saved);
-      const app = safeInitApp({ apiKey, projectId, databaseURL: dbUrl });
-      db = getDatabase(app);
-      isFirebase  = true;
-      isPresenter = true; // same device = presenter
-      showApp();
-      setStatus('live', 'Reconnected — live sync active 🎉');
-      listenFirebase();
-    } catch(e) { /* ignore */ }
   })();
 
   /* ─────────────────────────────────────────
