@@ -24,10 +24,8 @@
     font-family: 'Nunito', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
-    position: relative;
   }
 
-  /* Animated grid background */
   body::before {
     content: '';
     position: fixed;
@@ -54,594 +52,788 @@
     padding: 30px 20px;
   }
 
-  /* Header */
-  .header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-
-  .header h1 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(16px, 4vw, 28px);
-    color: var(--neon-yellow);
-    text-shadow:
-      0 0 10px var(--neon-yellow),
-      0 0 30px var(--neon-yellow),
-      0 0 60px rgba(255,230,0,0.4);
-    line-height: 1.6;
-    margin-bottom: 10px;
-    animation: flicker 4s infinite;
-  }
-
-  @keyframes flicker {
-    0%, 95%, 100% { opacity: 1; }
-    96% { opacity: 0.8; }
-    97% { opacity: 1; }
-    98% { opacity: 0.7; }
-  }
-
-  .header p {
-    color: var(--neon-cyan);
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    opacity: 0.8;
-  }
-
-  .prize-badges {
+  /* ===== SETUP SCREEN ===== */
+  #setupScreen {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
-    flex-wrap: wrap;
+    min-height: 100vh;
+    text-align: center;
+    padding: 30px 20px;
+    position: relative;
+    z-index: 1;
   }
 
-  .prize-badge {
-    background: linear-gradient(135deg, var(--purple), var(--neon-pink));
-    color: white;
+  #setupScreen h1 {
     font-family: 'Press Start 2P', monospace;
-    font-size: 9px;
-    padding: 8px 14px;
-    border-radius: 4px;
-    box-shadow: 0 0 15px rgba(255,45,120,0.5);
-    animation: pulse 2s ease-in-out infinite;
+    font-size: clamp(16px, 4vw, 26px);
+    color: var(--neon-yellow);
+    text-shadow: 0 0 20px var(--neon-yellow), 0 0 40px rgba(255,230,0,0.4);
+    margin-bottom: 10px;
+    line-height: 1.6;
   }
 
-  .prize-badge:nth-child(2) { animation-delay: 0.5s; }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(255,45,120,0.5); }
-    50% { transform: scale(1.03); box-shadow: 0 0 25px rgba(255,45,120,0.8); }
+  #setupScreen > p {
+    color: rgba(255,255,255,0.45);
+    font-size: 13px;
+    margin-bottom: 35px;
+    max-width: 500px;
+    line-height: 1.7;
   }
 
-  /* Entry Section */
-  .entry-section {
+  .setup-card {
     background: var(--card-bg);
     border: 2px solid rgba(0,245,255,0.3);
-    border-radius: 12px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 0 30px rgba(0,245,255,0.1), inset 0 0 30px rgba(0,0,0,0.3);
+    border-radius: 16px;
+    padding: 35px;
+    width: 100%;
+    max-width: 580px;
+    box-shadow: 0 0 40px rgba(0,245,255,0.08);
+    text-align: left;
   }
 
-  .section-title {
+  .setup-card h2 {
     font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
+    font-size: 10px;
     color: var(--neon-cyan);
     margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    line-height: 1.6;
   }
 
-  .section-title::before {
-    content: '▶';
-    color: var(--neon-yellow);
-    animation: blink 1s infinite;
+  .steps-box {
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 18px 18px 18px 22px;
+    margin-bottom: 22px;
   }
 
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+  .steps-box ol {
+    color: rgba(255,255,255,0.65);
+    font-size: 12.5px;
+    line-height: 2.1;
   }
 
-  .input-row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+  .steps-box a {
+    color: var(--neon-cyan);
+    font-weight: 700;
+    text-decoration: none;
   }
 
-  .name-input {
-    flex: 1;
-    min-width: 200px;
+  .steps-box a:hover { text-decoration: underline; }
+
+  .config-input {
+    width: 100%;
     background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(0,245,255,0.4);
+    border: 2px solid rgba(0,245,255,0.35);
     border-radius: 8px;
     color: white;
     font-family: 'Nunito', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 11px 15px;
     outline: none;
     transition: all 0.3s;
+    margin-bottom: 10px;
   }
 
-  .name-input::placeholder { color: rgba(255,255,255,0.3); }
+  .config-input::placeholder { color: rgba(255,255,255,0.22); font-size: 12px; }
 
-  .name-input:focus {
+  .config-input:focus {
     border-color: var(--neon-cyan);
-    background: rgba(0,245,255,0.05);
-    box-shadow: 0 0 20px rgba(0,245,255,0.2);
+    background: rgba(0,245,255,0.04);
+    box-shadow: 0 0 12px rgba(0,245,255,0.15);
   }
 
   .btn {
     font-family: 'Press Start 2P', monospace;
     font-size: 10px;
-    padding: 14px 24px;
+    padding: 13px 22px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
-    text-transform: uppercase;
-    white-space: nowrap;
   }
+
+  .btn-connect {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--purple));
+    color: var(--dark-bg);
+    width: 100%;
+    box-shadow: 0 0 18px rgba(0,245,255,0.3);
+    margin-top: 4px;
+  }
+
+  .btn-connect:hover { transform: translateY(-2px); box-shadow: 0 0 28px rgba(0,245,255,0.5); }
+
+  .btn-local {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.4);
+    width: 100%;
+    margin-top: 10px;
+    font-size: 8px;
+  }
+
+  .btn-local:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.4); }
+
+  /* ===== MAIN APP ===== */
+  #mainApp { display: none; }
+
+  .header { text-align: center; margin-bottom: 25px; }
+
+  .header h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(14px, 3.5vw, 24px);
+    color: var(--neon-yellow);
+    text-shadow: 0 0 10px var(--neon-yellow), 0 0 30px rgba(255,230,0,0.4);
+    line-height: 1.6;
+    margin-bottom: 6px;
+    animation: flicker 5s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 94%, 100% { opacity: 1; }
+    95% { opacity: 0.75; }
+    97% { opacity: 0.65; }
+  }
+
+  .header-sub { color: var(--neon-cyan); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.75; }
+
+  .prize-badges { display: flex; justify-content: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+
+  .prize-badge {
+    background: linear-gradient(135deg, var(--purple), var(--neon-pink));
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    box-shadow: 0 0 12px rgba(255,45,120,0.4);
+    animation: badgePulse 2s ease-in-out infinite;
+  }
+
+  .prize-badge:nth-child(2) { animation-delay: 0.6s; }
+
+  @keyframes badgePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .status-dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: #555;
+    transition: all 0.4s;
+    flex-shrink: 0;
+  }
+
+  .status-dot.live    { background: var(--green); box-shadow: 0 0 8px var(--green); animation: dotPulse 2s infinite; }
+  .status-dot.local   { background: var(--neon-yellow); box-shadow: 0 0 8px var(--neon-yellow); }
+  .status-dot.error   { background: var(--neon-pink); box-shadow: 0 0 8px var(--neon-pink); }
+
+  @keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .status-text { color: rgba(255,255,255,0.45); font-size: 11px; font-weight: 600; }
+
+  /* Participant banner */
+  .participant-banner {
+    background: linear-gradient(135deg, rgba(0,245,255,0.08), rgba(123,47,190,0.08));
+    border: 1px solid rgba(0,245,255,0.25);
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    display: none;
+  }
+
+  .participant-banner strong { color: var(--neon-cyan); }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 18px;
+  }
+
+  .card-entry   { border: 2px solid rgba(0,245,255,0.28); }
+  .card-players { border: 2px solid rgba(123,47,190,0.38); }
+  .card-draw    { border: 2px solid rgba(255,230,0,0.28); text-align: center; }
+
+  .card-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: var(--neon-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .card-title::before { content: '▶'; color: var(--neon-yellow); animation: blink 1s infinite; }
+  .card-draw .card-title { justify-content: center; }
+  .card-draw .card-title::before { display: none; }
+
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  .input-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .name-input {
+    flex: 1;
+    min-width: 170px;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(0,245,255,0.38);
+    border-radius: 8px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 11px 15px;
+    outline: none;
+    transition: all 0.3s;
+  }
+
+  .name-input::placeholder { color: rgba(255,255,255,0.28); }
+  .name-input:focus { border-color: var(--neon-cyan); background: rgba(0,245,255,0.04); box-shadow: 0 0 14px rgba(0,245,255,0.18); }
 
   .btn-add {
     background: linear-gradient(135deg, var(--neon-cyan), var(--purple));
     color: var(--dark-bg);
-    box-shadow: 0 0 20px rgba(0,245,255,0.4);
+    padding: 11px 18px;
+    font-size: 9px;
+    box-shadow: 0 0 14px rgba(0,245,255,0.28);
   }
 
-  .btn-add:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(0,245,255,0.6);
-  }
-
+  .btn-add:hover { transform: translateY(-2px); box-shadow: 0 0 22px rgba(0,245,255,0.45); }
   .btn-add:active { transform: translateY(0); }
-
-  /* Players list */
-  .players-section {
-    background: var(--card-bg);
-    border: 2px solid rgba(123,47,190,0.4);
-    border-radius: 12px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 0 30px rgba(123,47,190,0.1);
-  }
 
   .players-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-    min-height: 60px;
+    gap: 8px;
+    min-height: 48px;
+    margin-top: 10px;
   }
 
   .player-tag {
-    background: rgba(123,47,190,0.3);
-    border: 1px solid rgba(123,47,190,0.6);
+    background: rgba(123,47,190,0.28);
+    border: 1px solid rgba(123,47,190,0.55);
     color: white;
     font-weight: 700;
-    font-size: 15px;
-    padding: 8px 14px;
+    font-size: 14px;
+    padding: 6px 12px;
     border-radius: 50px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
     animation: tagIn 0.3s ease;
-    transition: all 0.2s;
   }
 
-  @keyframes tagIn {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+  .player-tag.is-winner {
+    background: rgba(255,230,0,0.12);
+    border-color: rgba(255,230,0,0.5);
+    color: rgba(255,230,0,0.6);
+    text-decoration: line-through;
   }
 
-  .player-tag:hover { background: rgba(123,47,190,0.5); }
+  @keyframes tagIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
   .remove-btn {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.4);
-    cursor: pointer;
-    font-size: 16px;
-    padding: 0;
-    line-height: 1;
+    background: none; border: none;
+    color: rgba(255,255,255,0.3);
+    cursor: pointer; font-size: 14px;
+    padding: 0; line-height: 1;
     transition: color 0.2s;
   }
 
   .remove-btn:hover { color: var(--neon-pink); }
 
-  .player-count {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 9px;
-    color: rgba(255,255,255,0.4);
-    margin-top: 12px;
-  }
+  .player-count { font-family: 'Press Start 2P', monospace; font-size: 8px; color: rgba(255,255,255,0.3); margin-top: 10px; }
 
-  .empty-state {
-    color: rgba(255,255,255,0.2);
-    font-size: 14px;
-    font-style: italic;
-    text-align: center;
-    width: 100%;
-    padding: 20px;
-  }
+  .empty-state { color: rgba(255,255,255,0.18); font-size: 13px; font-style: italic; text-align: center; width: 100%; padding: 14px; }
 
-  /* Draw section */
-  .draw-section {
-    background: var(--card-bg);
-    border: 2px solid rgba(255,230,0,0.3);
-    border-radius: 12px;
-    padding: 30px;
-    text-align: center;
-    box-shadow: 0 0 30px rgba(255,230,0,0.1);
-  }
-
-  .draw-controls {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 20px;
-  }
+  .draw-controls { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
 
   .btn-draw {
     background: linear-gradient(135deg, var(--neon-yellow), #FF8C00);
     color: var(--dark-bg);
-    font-size: 11px;
-    padding: 16px 30px;
-    box-shadow: 0 0 25px rgba(255,230,0,0.5);
+    font-size: 10px;
+    padding: 13px 24px;
+    box-shadow: 0 0 18px rgba(255,230,0,0.38);
   }
 
-  .btn-draw:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 40px rgba(255,230,0,0.7);
-  }
-
-  .btn-draw:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
-  }
+  .btn-draw:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(255,230,0,0.6); }
+  .btn-draw:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
 
   .btn-reset {
-    background: rgba(255,255,255,0.1);
-    color: rgba(255,255,255,0.6);
-    border: 1px solid rgba(255,255,255,0.2);
-    font-size: 9px;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.14);
+    font-size: 8px; padding: 9px 16px;
   }
 
-  .btn-reset:hover {
-    background: rgba(255,45,120,0.2);
-    color: var(--neon-pink);
-    border-color: var(--neon-pink);
-  }
+  .btn-reset:hover { background: rgba(255,45,120,0.14); color: var(--neon-pink); border-color: var(--neon-pink); }
 
-  /* Winner display */
-  .winner-display {
-    display: none;
-    margin-top: 30px;
-  }
-
-  .winner-display.show { display: block; }
-
-  .winner-card {
-    background: linear-gradient(135deg, rgba(255,230,0,0.1), rgba(255,45,120,0.1));
-    border: 2px solid var(--neon-yellow);
-    border-radius: 12px;
-    padding: 30px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 40px rgba(255,230,0,0.3);
-    animation: winnerReveal 0.5s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .winner-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(45deg, transparent 30%, rgba(255,230,0,0.05) 50%, transparent 70%);
-    animation: shimmer 2s infinite;
-  }
-
-  @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-
-  @keyframes winnerReveal {
-    from { transform: scale(0.8) rotateY(20deg); opacity: 0; }
-    to { transform: scale(1) rotateY(0deg); opacity: 1; }
-  }
-
-  .winner-label {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 9px;
-    color: var(--neon-yellow);
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-    opacity: 0.8;
-  }
-
-  .winner-prize {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    color: var(--neon-cyan);
-    margin-bottom: 15px;
-  }
-
-  .winner-name {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(14px, 4vw, 24px);
-    color: white;
-    text-shadow: 0 0 20px white, 0 0 40px rgba(255,230,0,0.5);
-    line-height: 1.4;
-    word-break: break-word;
-  }
-
-  .confetti-emoji {
-    font-size: 30px;
-    animation: bounce 0.5s ease infinite alternate;
-    display: inline-block;
-  }
-
-  @keyframes bounce {
-    from { transform: translateY(0); }
-    to { transform: translateY(-8px); }
-  }
-
-  /* Slot machine animation */
   .slot-display {
-    display: none;
     font-family: 'Press Start 2P', monospace;
-    font-size: clamp(12px, 3vw, 18px);
-    color: var(--neon-green);
+    font-size: clamp(11px, 2.5vw, 16px);
+    color: var(--neon-yellow);
     background: rgba(0,0,0,0.5);
     border: 2px solid var(--neon-cyan);
     border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
-    min-height: 70px;
+    padding: 16px;
+    margin: 16px 0;
+    min-height: 62px;
     display: none;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    word-break: break-word;
   }
 
   .slot-display.spinning {
     display: flex;
-    animation: borderPulse 0.3s infinite;
-    color: var(--neon-yellow);
+    animation: slotBorder 0.3s infinite;
   }
 
-  @keyframes borderPulse {
-    0%, 100% { border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(0,245,255,0.3); }
-    50% { border-color: var(--neon-pink); box-shadow: 0 0 20px rgba(255,45,120,0.5); }
+  @keyframes slotBorder {
+    0%, 100% { border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(0,245,255,0.28); }
+    50% { border-color: var(--neon-pink); box-shadow: 0 0 18px rgba(255,45,120,0.45); }
   }
+
+  .winner-area { margin-top: 18px; }
+
+  .winner-card {
+    background: linear-gradient(135deg, rgba(255,230,0,0.07), rgba(255,45,120,0.07));
+    border: 2px solid var(--neon-yellow);
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 12px;
+    box-shadow: 0 0 30px rgba(255,230,0,0.22);
+    animation: winnerIn 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .winner-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent 35%, rgba(255,230,0,0.04) 50%, transparent 65%);
+    animation: shimmer 2.5s infinite;
+  }
+
+  @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+  @keyframes winnerIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  .winner-label { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--neon-yellow); letter-spacing: 2px; margin-bottom: 8px; opacity: 0.75; }
+
+  .winner-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(13px, 3.5vw, 21px);
+    color: white;
+    text-shadow: 0 0 14px white, 0 0 30px rgba(255,230,0,0.35);
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  .bounce { font-size: 24px; display: inline-block; animation: bounce 0.5s ease infinite alternate; }
+  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-7px); } }
 
   .toast {
     position: fixed;
-    bottom: 30px;
+    bottom: 22px;
     left: 50%;
     transform: translateX(-50%) translateY(100px);
     background: var(--green);
     color: var(--dark-bg);
     font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    padding: 12px 24px;
+    font-size: 9px;
+    padding: 10px 20px;
     border-radius: 8px;
-    transition: transform 0.3s ease;
-    z-index: 100;
+    transition: transform 0.3s;
+    z-index: 999;
     white-space: nowrap;
+    max-width: 90vw;
+    text-align: center;
   }
 
   .toast.show { transform: translateX(-50%) translateY(0); }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: var(--dark-bg); }
   ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
 
-  @media (max-width: 500px) {
+  @media (max-width: 480px) {
     .input-row { flex-direction: column; }
     .btn { width: 100%; }
+    .setup-card { padding: 22px 16px; }
   }
 </style>
 </head>
 <body>
 
-<div class="container">
+<!-- ======= SETUP SCREEN ======= -->
+<div id="setupScreen">
+  <h1>🎮 GAME ON!</h1>
+  <p>Real-time prize giveaway — names entered on any phone appear instantly on the presenter's screen!</p>
 
-  <!-- Header -->
-  <div class="header">
-    <h1>🎮 GAME ON!</h1>
-    <p>Prize Giveaway Drawing</p>
-    <div class="prize-badges">
-      <div class="prize-badge">🏆 Prize 1</div>
-      <div class="prize-badge">🎯 Prize 2</div>
+  <div class="setup-card">
+    <h2>⚙️ One-Time Firebase Setup</h2>
+
+    <div class="steps-box">
+      <ol>
+        <li>Go to <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> and sign in with Google</li>
+        <li>Click <strong>"Add project"</strong> → name it <strong>game-on-giveaway</strong> → Create</li>
+        <li>In the left menu click <strong>"Build" → "Realtime Database"</strong></li>
+        <li>Click <strong>"Create Database"</strong> → choose <strong>Test mode</strong> → Enable</li>
+        <li>Click the ⚙️ gear icon → <strong>Project Settings</strong> → scroll to <strong>"Your apps"</strong></li>
+        <li>Click the <strong>&lt;/&gt;</strong> Web icon → Register app (any name) → copy your config values below</li>
+      </ol>
     </div>
+
+    <input class="config-input" id="cfgApiKey"    placeholder="apiKey  →  e.g. AIzaSyAbc123xyz..." />
+    <input class="config-input" id="cfgProjectId" placeholder="projectId  →  e.g. game-on-giveaway-a1b2c" />
+    <input class="config-input" id="cfgDbUrl"     placeholder="databaseURL  →  e.g. https://game-on-giveaway-a1b2c-default-rtdb.firebaseio.com" />
+
+    <button class="btn btn-connect" onclick="connectFirebase()">🚀 Connect &amp; Launch</button>
+    <button class="btn btn-local"   onclick="goLocal()">▶ Run without real-time sync (local only)</button>
   </div>
+</div>
 
-  <!-- Entry Section -->
-  <div class="entry-section">
-    <div class="section-title">Enter Your Name to Play</div>
-    <div class="input-row">
-      <input
-        type="text"
-        class="name-input"
-        id="nameInput"
-        placeholder="Type your name here..."
-        maxlength="40"
-        autocomplete="off"
-      />
-      <button class="btn btn-add" onclick="addPlayer()">+ Add Me!</button>
+<!-- ======= MAIN APP ======= -->
+<div id="mainApp">
+  <div class="container">
+
+    <div class="header">
+      <div class="header h1" style="font-family:'Press Start 2P',monospace;font-size:clamp(14px,3.5vw,24px);color:var(--neon-yellow);text-shadow:0 0 10px var(--neon-yellow),0 0 30px rgba(255,230,0,.4);line-height:1.6;margin-bottom:6px;animation:flicker 5s infinite;">🎮 GAME ON!</div>
+      <div class="header-sub">Prize Giveaway Drawing</div>
+      <div class="prize-badges">
+        <div class="prize-badge">🏆 Prize 1</div>
+        <div class="prize-badge">🎯 Prize 2</div>
+      </div>
     </div>
+
+    <div class="status-bar">
+      <div class="status-dot" id="statusDot"></div>
+      <span class="status-text" id="statusText">Starting...</span>
+    </div>
+
+    <div class="participant-banner" id="participantBanner">
+      📱 <strong>Participant view</strong> — Enter your name and it appears on the big screen instantly!
+    </div>
+
+    <!-- Entry -->
+    <div class="card card-entry">
+      <div class="card-title">Enter Your Name to Win</div>
+      <div class="input-row">
+        <input type="text" class="name-input" id="nameInput" placeholder="Type your name here..." maxlength="40" autocomplete="off" />
+        <button class="btn btn-add" onclick="addPlayer()">+ Add Me!</button>
+      </div>
+    </div>
+
+    <!-- Players -->
+    <div class="card card-players">
+      <div class="card-title">Players in the Drawing</div>
+      <div class="players-grid" id="playersList">
+        <div class="empty-state">No players yet — be the first! 🎮</div>
+      </div>
+      <div class="player-count" id="playerCount"></div>
+    </div>
+
+    <!-- Draw (presenter only) -->
+    <div class="card card-draw" id="drawCard">
+      <div class="card-title">🎰 Draw a Winner</div>
+      <div class="slot-display" id="slotDisplay"></div>
+      <div class="draw-controls">
+        <button class="btn btn-draw" id="draw1Btn" onclick="drawWinner(1)" disabled>🏆 Draw Prize 1</button>
+        <button class="btn btn-draw" id="draw2Btn" onclick="drawWinner(2)" disabled>🎯 Draw Prize 2</button>
+      </div>
+      <div class="winner-area" id="winnerArea"></div>
+      <div style="margin-top:16px">
+        <button class="btn btn-reset" onclick="resetAll()">↺ Reset Everything</button>
+      </div>
+    </div>
+
   </div>
-
-  <!-- Players List -->
-  <div class="players-section">
-    <div class="section-title">Players in the Drawing</div>
-    <div class="players-grid" id="playersList">
-      <div class="empty-state">No players yet — be the first to enter! 🎮</div>
-    </div>
-    <div class="player-count" id="playerCount"></div>
-  </div>
-
-  <!-- Draw Section -->
-  <div class="draw-section">
-    <div class="section-title" style="justify-content:center;">🎰 Draw a Winner</div>
-
-    <div class="slot-display" id="slotDisplay">...</div>
-
-    <div class="draw-controls">
-      <button class="btn btn-draw" id="draw1Btn" onclick="drawWinner(1)" disabled>
-        🏆 Draw Prize 1
-      </button>
-      <button class="btn btn-draw" id="draw2Btn" onclick="drawWinner(2)" disabled>
-        🎯 Draw Prize 2
-      </button>
-    </div>
-
-    <div class="winner-display" id="winnerDisplay"></div>
-
-    <div style="margin-top: 20px;">
-      <button class="btn btn-reset" onclick="resetAll()">↺ Reset Everything</button>
-    </div>
-  </div>
-
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script>
-  let players = [];
-  let winners = [];
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp, getApps, getApp }       from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, onValue, push, set, remove }
+                                                  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  function safeInitApp(config) {
+    if (getApps().length > 0) return getApp();
+    return initializeApp(config);
+  }
+
+  /* ── State ── */
+  let players     = {};   // { fbKey: name }
+  let winners     = [];   // [ name, name ]
   let isAnimating = false;
+  let db          = null;
+  let isPresenter = false;
+  let isFirebase  = false;
 
-  const nameInput = document.getElementById('nameInput');
-  const playersList = document.getElementById('playersList');
-  const playerCount = document.getElementById('playerCount');
-  const draw1Btn = document.getElementById('draw1Btn');
-  const draw2Btn = document.getElementById('draw2Btn');
-  const slotDisplay = document.getElementById('slotDisplay');
-  const winnerDisplay = document.getElementById('winnerDisplay');
+  /* ── DOM ── */
+  const nameInput       = document.getElementById('nameInput');
+  const playersList     = document.getElementById('playersList');
+  const playerCount     = document.getElementById('playerCount');
+  const draw1Btn        = document.getElementById('draw1Btn');
+  const draw2Btn        = document.getElementById('draw2Btn');
+  const slotDisplay     = document.getElementById('slotDisplay');
+  const winnerArea      = document.getElementById('winnerArea');
+  const statusDot       = document.getElementById('statusDot');
+  const statusText      = document.getElementById('statusText');
+  const drawCard        = document.getElementById('drawCard');
+  const participantBanner = document.getElementById('participantBanner');
 
-  nameInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter') addPlayer();
-  });
+  nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') addPlayer(); });
 
+  /* ── Exposed to onclick ── */
+  window.connectFirebase = connectFirebase;
+  window.goLocal         = goLocal;
+  window.addPlayer       = addPlayer;
+  window.removePlayer    = removePlayer;
+  window.drawWinner      = drawWinner;
+  window.resetAll        = resetAll;
+
+  /* ─────────────────────────────────────────
+     SETUP
+  ───────────────────────────────────────── */
+  function connectFirebase() {
+    const apiKey    = document.getElementById('cfgApiKey').value.trim();
+    const projectId = document.getElementById('cfgProjectId').value.trim();
+    const dbUrl     = document.getElementById('cfgDbUrl').value.trim();
+
+    if (!apiKey || !projectId || !dbUrl) { toast('⚠️ Fill in all three fields!'); return; }
+
+    try {
+      const app = safeInitApp({ apiKey, projectId, databaseURL: dbUrl });
+      db = getDatabase(app);
+      isFirebase  = true;
+      isPresenter = true;
+
+      localStorage.setItem('goFB', JSON.stringify({ apiKey, projectId, dbUrl }));
+
+      showApp();
+      setStatus('live', 'Live! Participants can enter names now 🎉');
+      listenFirebase();
+    } catch(err) {
+      toast('❌ Firebase error — check config values');
+      console.error(err);
+    }
+  }
+
+  function goLocal() {
+    isFirebase  = false;
+    isPresenter = true;
+    showApp();
+    setStatus('local', 'Local mode — names won\'t sync across devices');
+  }
+
+  function showApp() {
+    document.getElementById('setupScreen').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    if (!isPresenter) {
+      drawCard.style.display = 'none';
+      participantBanner.style.display = 'block';
+    }
+  }
+
+  /* Auto-reconnect for participants on same device */
+  (function tryAutoJoin() {
+    const saved = localStorage.getItem('goFB');
+    if (!saved) return;
+    try {
+      const { apiKey, projectId, dbUrl } = JSON.parse(saved);
+      const app = safeInitApp({ apiKey, projectId, databaseURL: dbUrl });
+      db = getDatabase(app);
+      isFirebase  = true;
+      isPresenter = true; // same device = presenter
+      showApp();
+      setStatus('live', 'Reconnected — live sync active 🎉');
+      listenFirebase();
+    } catch(e) { /* ignore */ }
+  })();
+
+  /* ─────────────────────────────────────────
+     FIREBASE LISTENERS
+  ───────────────────────────────────────── */
+  function listenFirebase() {
+    onValue(ref(db, 'players'), snap => {
+      players = snap.val() || {};
+      renderPlayers();
+      refreshButtons();
+    });
+
+    onValue(ref(db, 'winners'), snap => {
+      const data = snap.val();
+      winners = data ? Object.values(data) : [];
+      renderWinners();
+      refreshButtons();
+    });
+  }
+
+  /* ─────────────────────────────────────────
+     ADD PLAYER
+  ───────────────────────────────────────── */
   function addPlayer() {
     const name = nameInput.value.trim();
     if (!name) return;
-    if (players.includes(name)) {
-      showToast('⚠️ Name already entered!');
-      return;
+
+    const existing = Object.values(players).map(n => n.toLowerCase());
+    if (existing.includes(name.toLowerCase())) { toast('⚠️ That name is already in!'); return; }
+
+    if (isFirebase && db) {
+      push(ref(db, 'players'), name);
+    } else {
+      players['local_' + Date.now()] = name;
+      renderPlayers();
+      refreshButtons();
     }
-    players.push(name);
+
     nameInput.value = '';
     nameInput.focus();
-    renderPlayers();
-    updateDrawButtons();
-    showToast('✅ ' + name + ' is in the drawing!');
+    toast('✅ ' + name + ' is in the drawing!');
   }
 
-  function removePlayer(name) {
-    players = players.filter(p => p !== name);
-    renderPlayers();
-    updateDrawButtons();
+  /* ─────────────────────────────────────────
+     REMOVE PLAYER
+  ───────────────────────────────────────── */
+  function removePlayer(key) {
+    if (isFirebase && db) {
+      remove(ref(db, 'players/' + key));
+    } else {
+      delete players[key];
+      renderPlayers();
+      refreshButtons();
+    }
   }
 
+  /* ─────────────────────────────────────────
+     RENDER PLAYERS
+  ───────────────────────────────────────── */
   function renderPlayers() {
-    if (players.length === 0) {
-      playersList.innerHTML = '<div class="empty-state">No players yet — be the first to enter! 🎮</div>';
+    const entries = Object.entries(players);
+    if (!entries.length) {
+      playersList.innerHTML = '<div class="empty-state">No players yet — be the first! 🎮</div>';
       playerCount.textContent = '';
       return;
     }
-    playersList.innerHTML = players.map(name => `
-      <div class="player-tag">
-        ${name}
-        <button class="remove-btn" onclick="removePlayer('${name.replace(/'/g, "\\'")}')" title="Remove">✕</button>
-      </div>
-    `).join('');
-    playerCount.textContent = players.length + ' player' + (players.length === 1 ? '' : 's') + ' entered';
+    playersList.innerHTML = entries.map(([key, name]) => {
+      const won = winners.includes(name);
+      const rmBtn = isPresenter
+        ? `<button class="remove-btn" onclick="removePlayer('${key.replace(/'/g,"\\'")}')">✕</button>`
+        : '';
+      return `<div class="player-tag${won ? ' is-winner' : ''}">${name}${won ? ' 🏆' : ''}${rmBtn}</div>`;
+    }).join('');
+    playerCount.textContent = entries.length + ' player' + (entries.length === 1 ? '' : 's') + ' entered';
   }
 
-  function updateDrawButtons() {
-    const available = players.filter(p => !winners.includes(p));
-    draw1Btn.disabled = available.length === 0 || isAnimating || winners.length >= 1;
-    draw2Btn.disabled = available.length === 0 || isAnimating || winners.length >= 2 || winners.length < 1;
+  /* ─────────────────────────────────────────
+     RENDER WINNERS
+  ───────────────────────────────────────── */
+  function renderWinners() {
+    if (!winners.length) { winnerArea.innerHTML = ''; return; }
+    winnerArea.innerHTML = winners.map((name, i) => `
+      <div class="winner-card">
+        <div class="winner-label">🏅 PRIZE ${i + 1} WINNER</div>
+        <div class="winner-name">
+          <span class="bounce">🎉</span>
+          ${name}
+          <span class="bounce" style="animation-delay:.2s">🎉</span>
+        </div>
+      </div>`).join('');
   }
 
+  /* ─────────────────────────────────────────
+     DRAW WINNER
+  ───────────────────────────────────────── */
   function drawWinner(prizeNum) {
-    const available = players.filter(p => !winners.includes(p));
-    if (available.length === 0 || isAnimating) return;
+    const pool = Object.values(players).filter(n => !winners.includes(n));
+    if (!pool.length || isAnimating) return;
 
     isAnimating = true;
     draw1Btn.disabled = true;
     draw2Btn.disabled = true;
 
-    // Slot machine animation
     slotDisplay.classList.add('spinning');
-    let count = 0;
-    const totalFrames = 30;
-    const interval = setInterval(() => {
-      const randomName = available[Math.floor(Math.random() * available.length)];
-      slotDisplay.textContent = randomName;
-      count++;
-      if (count >= totalFrames) {
-        clearInterval(interval);
+    slotDisplay.style.display = 'flex';
+
+    let tick = 0;
+    const frames = 34;
+    const id = setInterval(() => {
+      slotDisplay.textContent = pool[Math.floor(Math.random() * pool.length)];
+      tick++;
+      if (tick >= frames) {
+        clearInterval(id);
         slotDisplay.classList.remove('spinning');
         slotDisplay.style.display = 'none';
 
-        // Pick real winner
-        const winner = available[Math.floor(Math.random() * available.length)];
-        winners.push(winner);
+        const winner = pool[Math.floor(Math.random() * pool.length)];
         isAnimating = false;
-        showWinner(winner, prizeNum);
-        updateDrawButtons();
+
+        if (isFirebase && db) {
+          push(ref(db, 'winners'), winner);
+        } else {
+          winners.push(winner);
+          renderWinners();
+          refreshButtons();
+        }
+
+        toast('🎊 ' + winner + ' wins Prize ' + prizeNum + '!');
       }
     }, 80);
   }
 
-  function showWinner(name, prizeNum) {
-    const prizeLabel = prizeNum === 1 ? '🏆 PRIZE 1 WINNER' : '🎯 PRIZE 2 WINNER';
-    const existing = winnerDisplay.innerHTML;
-    const newCard = `
-      <div class="winner-card">
-        <div class="winner-label">${prizeLabel}</div>
-        <div class="winner-name">
-          <span class="confetti-emoji">🎉</span>
-          ${name}
-          <span class="confetti-emoji" style="animation-delay:0.2s">🎉</span>
-        </div>
-      </div>
-    `;
-    winnerDisplay.innerHTML = existing + newCard;
-    winnerDisplay.classList.add('show');
-    showToast('🎊 ' + name + ' wins Prize ' + prizeNum + '!');
-  }
-
+  /* ─────────────────────────────────────────
+     RESET
+  ───────────────────────────────────────── */
   function resetAll() {
-    if (!confirm('Reset everything and start a new drawing?')) return;
-    players = [];
-    winners = [];
-    winnerDisplay.innerHTML = '';
-    winnerDisplay.classList.remove('show');
-    slotDisplay.style.display = 'none';
-    slotDisplay.classList.remove('spinning');
-    renderPlayers();
-    updateDrawButtons();
-    showToast('↺ Reset! Ready for a new drawing.');
+    if (!confirm('Reset everything and start a fresh drawing?')) return;
+    if (isFirebase && db) {
+      set(ref(db, 'players'), null);
+      set(ref(db, 'winners'), null);
+    } else {
+      players = {}; winners = [];
+      renderPlayers(); renderWinners(); refreshButtons();
+    }
+    toast('↺ Reset! Ready for a new drawing.');
   }
 
-  function showToast(msg) {
-    const toast = document.getElementById('toast');
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
+  /* ─────────────────────────────────────────
+     HELPERS
+  ───────────────────────────────────────── */
+  function refreshButtons() {
+    if (!isPresenter) return;
+    const pool = Object.values(players).filter(n => !winners.includes(n));
+    draw1Btn.disabled = !pool.length || isAnimating || winners.length >= 1;
+    draw2Btn.disabled = !pool.length || isAnimating || winners.length < 1 || winners.length >= 2;
+  }
+
+  function setStatus(type, msg) {
+    statusDot.className = 'status-dot ' + type;
+    statusText.textContent = msg;
+  }
+
+  function toast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 2800);
   }
 </script>
 </body>
