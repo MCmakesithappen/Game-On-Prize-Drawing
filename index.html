@@ -6,7 +6,6 @@
 <title>Game On! Prize Giveaway</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800&display=swap');
-
   :root {
     --neon-yellow: #FFE600;
     --neon-pink: #FF2D78;
@@ -16,588 +15,181 @@
     --purple: #7B2FBE;
     --green: #00FF88;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--dark-bg);
-    font-family: 'Nunito', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
+  body { background: var(--dark-bg); font-family: 'Nunito', sans-serif; min-height: 100vh; overflow-x: hidden; }
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,245,255,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,245,255,0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: gridMove 20s linear infinite;
-    pointer-events: none;
-    z-index: 0;
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(0,245,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px; animation: gridMove 20s linear infinite; pointer-events: none; z-index: 0;
   }
-
-  @keyframes gridMove {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(40px); }
-  }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 30px 20px;
-  }
-
-  /* ===== SETUP SCREEN ===== */
-  #setupScreen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    text-align: center;
-    padding: 30px 20px;
-    position: relative;
-    z-index: 1;
-  }
-
-  #setupScreen h1 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(16px, 4vw, 26px);
-    color: var(--neon-yellow);
-    text-shadow: 0 0 20px var(--neon-yellow), 0 0 40px rgba(255,230,0,0.4);
-    margin-bottom: 10px;
-    line-height: 1.6;
-  }
-
-  #setupScreen > p {
-    color: rgba(255,255,255,0.45);
-    font-size: 13px;
-    margin-bottom: 35px;
-    max-width: 500px;
-    line-height: 1.7;
-  }
-
-  .setup-card {
-    background: var(--card-bg);
-    border: 2px solid rgba(0,245,255,0.3);
-    border-radius: 16px;
-    padding: 35px;
-    width: 100%;
-    max-width: 580px;
-    box-shadow: 0 0 40px rgba(0,245,255,0.08);
-    text-align: left;
-  }
-
-  .setup-card h2 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    color: var(--neon-cyan);
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
-
-  .steps-box {
-    background: rgba(0,0,0,0.35);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 8px;
-    padding: 18px 18px 18px 22px;
-    margin-bottom: 22px;
-  }
-
-  .steps-box ol {
-    color: rgba(255,255,255,0.65);
-    font-size: 12.5px;
-    line-height: 2.1;
-  }
-
-  .steps-box a {
-    color: var(--neon-cyan);
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  .steps-box a:hover { text-decoration: underline; }
-
-  .config-input {
-    width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(0,245,255,0.35);
-    border-radius: 8px;
-    color: white;
-    font-family: 'Nunito', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 11px 15px;
-    outline: none;
-    transition: all 0.3s;
-    margin-bottom: 10px;
-  }
-
-  .config-input::placeholder { color: rgba(255,255,255,0.22); font-size: 12px; }
-
-  .config-input:focus {
-    border-color: var(--neon-cyan);
-    background: rgba(0,245,255,0.04);
-    box-shadow: 0 0 12px rgba(0,245,255,0.15);
-  }
-
-  .btn {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    padding: 13px 22px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-connect {
-    background: linear-gradient(135deg, var(--neon-cyan), var(--purple));
-    color: var(--dark-bg);
-    width: 100%;
-    box-shadow: 0 0 18px rgba(0,245,255,0.3);
-    margin-top: 4px;
-  }
-
-  .btn-connect:hover { transform: translateY(-2px); box-shadow: 0 0 28px rgba(0,245,255,0.5); }
-
-  .btn-local {
-    background: none;
-    border: 1px solid rgba(255,255,255,0.18);
-    color: rgba(255,255,255,0.4);
-    width: 100%;
-    margin-top: 10px;
-    font-size: 8px;
-  }
-
-  .btn-local:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.4); }
-
-  /* ===== MAIN APP ===== */
-  #mainApp { display: none; }
-
+  @keyframes gridMove { 0% { transform: translateY(0); } 100% { transform: translateY(40px); } }
+  .container { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 30px 20px; }
   .header { text-align: center; margin-bottom: 25px; }
-
-  .header h1 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(14px, 3.5vw, 24px);
-    color: var(--neon-yellow);
-    text-shadow: 0 0 10px var(--neon-yellow), 0 0 30px rgba(255,230,0,0.4);
-    line-height: 1.6;
-    margin-bottom: 6px;
-    animation: flicker 5s infinite;
+  .game-title {
+    font-family: 'Press Start 2P', monospace; font-size: clamp(14px, 3.5vw, 26px);
+    color: var(--neon-yellow); text-shadow: 0 0 10px var(--neon-yellow), 0 0 30px rgba(255,230,0,0.4);
+    line-height: 1.6; margin-bottom: 6px; animation: flicker 5s infinite;
   }
-
-  @keyframes flicker {
-    0%, 94%, 100% { opacity: 1; }
-    95% { opacity: 0.75; }
-    97% { opacity: 0.65; }
-  }
-
+  @keyframes flicker { 0%,94%,100%{opacity:1} 95%{opacity:0.75} 97%{opacity:0.65} }
   .header-sub { color: var(--neon-cyan); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.75; }
-
   .prize-badges { display: flex; justify-content: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
-
   .prize-badge {
-    background: linear-gradient(135deg, var(--purple), var(--neon-pink));
-    color: white;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    padding: 6px 12px;
-    border-radius: 4px;
-    box-shadow: 0 0 12px rgba(255,45,120,0.4);
-    animation: badgePulse 2s ease-in-out infinite;
+    background: linear-gradient(135deg, var(--purple), var(--neon-pink)); color: white;
+    font-family: 'Press Start 2P', monospace; font-size: 8px; padding: 6px 12px; border-radius: 4px;
+    box-shadow: 0 0 12px rgba(255,45,120,0.4); animation: badgePulse 2s ease-in-out infinite;
   }
-
   .prize-badge:nth-child(2) { animation-delay: 0.6s; }
-
-  @keyframes badgePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
-
-  /* Status bar */
-  .status-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 18px;
-  }
-
-  .status-dot {
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    background: #555;
-    transition: all 0.4s;
-    flex-shrink: 0;
-  }
-
-  .status-dot.live    { background: var(--green); box-shadow: 0 0 8px var(--green); animation: dotPulse 2s infinite; }
-  .status-dot.local   { background: var(--neon-yellow); box-shadow: 0 0 8px var(--neon-yellow); }
-  .status-dot.error   { background: var(--neon-pink); box-shadow: 0 0 8px var(--neon-pink); }
-
-  @keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
+  @keyframes badgePulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+  .status-bar { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 18px; }
+  .status-dot { width: 9px; height: 9px; border-radius: 50%; background: #555; transition: all 0.4s; flex-shrink: 0; }
+  .status-dot.live { background: var(--green); box-shadow: 0 0 8px var(--green); animation: dotPulse 2s infinite; }
+  .status-dot.error { background: var(--neon-pink); box-shadow: 0 0 8px var(--neon-pink); }
+  @keyframes dotPulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   .status-text { color: rgba(255,255,255,0.45); font-size: 11px; font-weight: 600; }
-
-  /* Participant banner */
   .participant-banner {
     background: linear-gradient(135deg, rgba(0,245,255,0.08), rgba(123,47,190,0.08));
-    border: 1px solid rgba(0,245,255,0.25);
-    border-radius: 8px;
-    padding: 10px 16px;
-    text-align: center;
-    margin-bottom: 18px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.55);
-    display: none;
+    border: 1px solid rgba(0,245,255,0.25); border-radius: 8px; padding: 10px 16px;
+    text-align: center; margin-bottom: 18px; font-size: 13px; color: rgba(255,255,255,0.6); display: none;
   }
-
   .participant-banner strong { color: var(--neon-cyan); }
-
-  /* Cards */
-  .card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 18px;
-  }
-
+  .card { background: var(--card-bg); border-radius: 12px; padding: 24px; margin-bottom: 18px; }
   .card-entry   { border: 2px solid rgba(0,245,255,0.28); }
   .card-players { border: 2px solid rgba(123,47,190,0.38); }
   .card-draw    { border: 2px solid rgba(255,230,0,0.28); text-align: center; }
-
   .card-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 9px;
-    color: var(--neon-cyan);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 9px;
+    font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--neon-cyan);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 9px;
   }
-
   .card-title::before { content: '▶'; color: var(--neon-yellow); animation: blink 1s infinite; }
   .card-draw .card-title { justify-content: center; }
   .card-draw .card-title::before { display: none; }
-
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
   .input-row { display: flex; gap: 10px; flex-wrap: wrap; }
-
   .name-input {
-    flex: 1;
-    min-width: 170px;
-    background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(0,245,255,0.38);
-    border-radius: 8px;
-    color: white;
-    font-family: 'Nunito', sans-serif;
-    font-size: 17px;
-    font-weight: 700;
-    padding: 11px 15px;
-    outline: none;
-    transition: all 0.3s;
+    flex: 1; min-width: 170px; background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(0,245,255,0.38); border-radius: 8px; color: white;
+    font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 700;
+    padding: 11px 15px; outline: none; transition: all 0.3s;
   }
-
   .name-input::placeholder { color: rgba(255,255,255,0.28); }
   .name-input:focus { border-color: var(--neon-cyan); background: rgba(0,245,255,0.04); box-shadow: 0 0 14px rgba(0,245,255,0.18); }
-
-  .btn-add {
-    background: linear-gradient(135deg, var(--neon-cyan), var(--purple));
-    color: var(--dark-bg);
-    padding: 11px 18px;
-    font-size: 9px;
-    box-shadow: 0 0 14px rgba(0,245,255,0.28);
-  }
-
+  .btn { font-family: 'Press Start 2P', monospace; font-size: 10px; padding: 13px 22px; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+  .btn-add { background: linear-gradient(135deg, var(--neon-cyan), var(--purple)); color: var(--dark-bg); padding: 11px 18px; font-size: 9px; box-shadow: 0 0 14px rgba(0,245,255,0.28); }
   .btn-add:hover { transform: translateY(-2px); box-shadow: 0 0 22px rgba(0,245,255,0.45); }
   .btn-add:active { transform: translateY(0); }
-
-  .players-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    min-height: 48px;
-    margin-top: 10px;
-  }
-
+  .players-grid { display: flex; flex-wrap: wrap; gap: 8px; min-height: 48px; margin-top: 10px; }
   .player-tag {
-    background: rgba(123,47,190,0.28);
-    border: 1px solid rgba(123,47,190,0.55);
-    color: white;
-    font-weight: 700;
-    font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    animation: tagIn 0.3s ease;
+    background: rgba(123,47,190,0.28); border: 1px solid rgba(123,47,190,0.55);
+    color: white; font-weight: 700; font-size: 14px; padding: 6px 12px; border-radius: 50px;
+    display: flex; align-items: center; gap: 7px; animation: tagIn 0.3s ease;
   }
-
-  .player-tag.is-winner {
-    background: rgba(255,230,0,0.12);
-    border-color: rgba(255,230,0,0.5);
-    color: rgba(255,230,0,0.6);
-    text-decoration: line-through;
-  }
-
-  @keyframes tagIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-  .remove-btn {
-    background: none; border: none;
-    color: rgba(255,255,255,0.3);
-    cursor: pointer; font-size: 14px;
-    padding: 0; line-height: 1;
-    transition: color 0.2s;
-  }
-
+  .player-tag.is-winner { background: rgba(255,230,0,0.12); border-color: rgba(255,230,0,0.5); color: rgba(255,230,0,0.6); text-decoration: line-through; }
+  @keyframes tagIn { from{transform:scale(0.5);opacity:0} to{transform:scale(1);opacity:1} }
+  .remove-btn { background: none; border: none; color: rgba(255,255,255,0.3); cursor: pointer; font-size: 14px; padding: 0; line-height: 1; transition: color 0.2s; }
   .remove-btn:hover { color: var(--neon-pink); }
-
   .player-count { font-family: 'Press Start 2P', monospace; font-size: 8px; color: rgba(255,255,255,0.3); margin-top: 10px; }
-
   .empty-state { color: rgba(255,255,255,0.18); font-size: 13px; font-style: italic; text-align: center; width: 100%; padding: 14px; }
-
   .draw-controls { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
-
-  .btn-draw {
-    background: linear-gradient(135deg, var(--neon-yellow), #FF8C00);
-    color: var(--dark-bg);
-    font-size: 10px;
-    padding: 13px 24px;
-    box-shadow: 0 0 18px rgba(255,230,0,0.38);
-  }
-
+  .btn-draw { background: linear-gradient(135deg, var(--neon-yellow), #FF8C00); color: var(--dark-bg); font-size: 10px; padding: 13px 24px; box-shadow: 0 0 18px rgba(255,230,0,0.38); }
   .btn-draw:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(255,230,0,0.6); }
   .btn-draw:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
-
-  .btn-reset {
-    background: rgba(255,255,255,0.06);
-    color: rgba(255,255,255,0.4);
-    border: 1px solid rgba(255,255,255,0.14);
-    font-size: 8px; padding: 9px 16px;
-  }
-
+  .btn-reset { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.14); font-size: 8px; padding: 9px 16px; }
   .btn-reset:hover { background: rgba(255,45,120,0.14); color: var(--neon-pink); border-color: var(--neon-pink); }
-
   .slot-display {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(11px, 2.5vw, 16px);
-    color: var(--neon-yellow);
-    background: rgba(0,0,0,0.5);
-    border: 2px solid var(--neon-cyan);
-    border-radius: 8px;
-    padding: 16px;
-    margin: 16px 0;
-    min-height: 62px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    word-break: break-word;
+    font-family: 'Press Start 2P', monospace; font-size: clamp(11px,2.5vw,16px); color: var(--neon-yellow);
+    background: rgba(0,0,0,0.5); border: 2px solid var(--neon-cyan); border-radius: 8px; padding: 16px; margin: 16px 0;
+    min-height: 62px; display: none; align-items: center; justify-content: center; word-break: break-word;
   }
-
-  .slot-display.spinning {
-    display: flex;
-    animation: slotBorder 0.3s infinite;
-  }
-
-  @keyframes slotBorder {
-    0%, 100% { border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(0,245,255,0.28); }
-    50% { border-color: var(--neon-pink); box-shadow: 0 0 18px rgba(255,45,120,0.45); }
-  }
-
+  .slot-display.spinning { display: flex; animation: slotBorder 0.3s infinite; }
+  @keyframes slotBorder { 0%,100%{border-color:var(--neon-cyan);box-shadow:0 0 10px rgba(0,245,255,0.28)} 50%{border-color:var(--neon-pink);box-shadow:0 0 18px rgba(255,45,120,0.45)} }
   .winner-area { margin-top: 18px; }
-
   .winner-card {
     background: linear-gradient(135deg, rgba(255,230,0,0.07), rgba(255,45,120,0.07));
-    border: 2px solid var(--neon-yellow);
-    border-radius: 12px;
-    padding: 22px;
-    margin-bottom: 12px;
-    box-shadow: 0 0 30px rgba(255,230,0,0.22);
-    animation: winnerIn 0.5s ease;
-    position: relative;
-    overflow: hidden;
+    border: 2px solid var(--neon-yellow); border-radius: 12px; padding: 22px; margin-bottom: 12px;
+    box-shadow: 0 0 30px rgba(255,230,0,0.22); animation: winnerIn 0.5s ease; position: relative; overflow: hidden;
   }
-
-  .winner-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(45deg, transparent 35%, rgba(255,230,0,0.04) 50%, transparent 65%);
-    animation: shimmer 2.5s infinite;
-  }
-
-  @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-  @keyframes winnerIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
+  .winner-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(45deg, transparent 35%, rgba(255,230,0,0.04) 50%, transparent 65%); animation: shimmer 2.5s infinite; }
+  @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+  @keyframes winnerIn { from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
   .winner-label { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--neon-yellow); letter-spacing: 2px; margin-bottom: 8px; opacity: 0.75; }
-
-  .winner-name {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(13px, 3.5vw, 21px);
-    color: white;
-    text-shadow: 0 0 14px white, 0 0 30px rgba(255,230,0,0.35);
-    line-height: 1.5;
-    word-break: break-word;
-  }
-
+  .winner-name { font-family: 'Press Start 2P', monospace; font-size: clamp(13px,3.5vw,21px); color: white; text-shadow: 0 0 14px white, 0 0 30px rgba(255,230,0,0.35); line-height: 1.5; word-break: break-word; }
   .bounce { font-size: 24px; display: inline-block; animation: bounce 0.5s ease infinite alternate; }
-  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-7px); } }
-
-  .toast {
-    position: fixed;
-    bottom: 22px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--green);
-    color: var(--dark-bg);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 9px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    transition: transform 0.3s;
-    z-index: 999;
-    white-space: nowrap;
-    max-width: 90vw;
-    text-align: center;
-  }
-
+  @keyframes bounce { from{transform:translateY(0)} to{transform:translateY(-7px)} }
+  .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--green); color: var(--dark-bg); font-family: 'Press Start 2P', monospace; font-size: 9px; padding: 10px 20px; border-radius: 8px; transition: transform 0.3s; z-index: 999; white-space: nowrap; max-width: 90vw; text-align: center; }
   .toast.show { transform: translateX(-50%) translateY(0); }
-
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: var(--dark-bg); }
-  ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
-
-  @media (max-width: 480px) {
-    .input-row { flex-direction: column; }
-    .btn { width: 100%; }
-    .setup-card { padding: 22px 16px; }
-  }
+  ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--dark-bg)} ::-webkit-scrollbar-thumb{background:var(--purple);border-radius:3px}
+  @media(max-width:480px){.input-row{flex-direction:column}.btn{width:100%}}
 </style>
 </head>
 <body>
-
-<!-- ======= SETUP SCREEN ======= -->
-<div id="setupScreen">
-  <h1>🎮 GAME ON!</h1>
-  <p>Real-time prize giveaway — names entered on any phone appear instantly on the presenter's screen!</p>
-
-  <div class="setup-card">
-    <h2>⚙️ One-Time Firebase Setup</h2>
-
-    <div class="steps-box">
-      <ol>
-        <li>Go to <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> and sign in with Google</li>
-        <li>Click <strong>"Add project"</strong> → name it <strong>game-on-giveaway</strong> → Create</li>
-        <li>In the left menu click <strong>"Build" → "Realtime Database"</strong></li>
-        <li>Click <strong>"Create Database"</strong> → choose <strong>Test mode</strong> → Enable</li>
-        <li>Click the ⚙️ gear icon → <strong>Project Settings</strong> → scroll to <strong>"Your apps"</strong></li>
-        <li>Click the <strong>&lt;/&gt;</strong> Web icon → Register app (any name) → copy your config values below</li>
-      </ol>
+<div class="container">
+  <div class="header">
+    <div class="game-title">&#x1F3AE; GAME ON!</div>
+    <div class="header-sub">Prize Giveaway Drawing</div>
+    <div class="prize-badges">
+      <div class="prize-badge">&#x1F3C6; Prize 1</div>
+      <div class="prize-badge">&#x1F3AF; Prize 2</div>
     </div>
-
-    <input class="config-input" id="cfgApiKey"    placeholder="apiKey  →  e.g. AIzaSyAbc123xyz..." />
-    <input class="config-input" id="cfgProjectId" placeholder="projectId  →  e.g. game-on-giveaway-a1b2c" />
-    <input class="config-input" id="cfgDbUrl"     placeholder="databaseURL  →  e.g. https://game-on-giveaway-a1b2c-default-rtdb.firebaseio.com" />
-
-    <button class="btn btn-connect" onclick="connectFirebase()">🚀 Connect &amp; Launch</button>
-    <button class="btn btn-local"   onclick="goLocal()">▶ Run without real-time sync (local only)</button>
+  </div>
+  <div class="status-bar">
+    <div class="status-dot" id="statusDot"></div>
+    <span class="status-text" id="statusText">Connecting...</span>
+  </div>
+  <div class="participant-banner" id="participantBanner">
+    &#x1F4F1; <strong>Enter your name below</strong> and watch it appear on the big screen!
+  </div>
+  <div class="card card-entry">
+    <div class="card-title">Enter Your Name to Win</div>
+    <div class="input-row">
+      <input type="text" class="name-input" id="nameInput" placeholder="Type your name here..." maxlength="40" autocomplete="off" />
+      <button class="btn btn-add" onclick="addPlayer()">+ Add Me!</button>
+    </div>
+  </div>
+  <div class="card card-players">
+    <div class="card-title">Players in the Drawing</div>
+    <div class="players-grid" id="playersList">
+      <div class="empty-state">No players yet -- be the first!</div>
+    </div>
+    <div class="player-count" id="playerCount"></div>
+  </div>
+  <div class="card card-draw" id="drawCard" style="display:none">
+    <div class="card-title">Draw a Winner</div>
+    <div class="slot-display" id="slotDisplay"></div>
+    <div class="draw-controls">
+      <button class="btn btn-draw" id="draw1Btn" onclick="drawWinner(1)" disabled>&#x1F3C6; Draw Prize 1</button>
+      <button class="btn btn-draw" id="draw2Btn" onclick="drawWinner(2)" disabled>&#x1F3AF; Draw Prize 2</button>
+    </div>
+    <div class="winner-area" id="winnerArea"></div>
+    <div style="margin-top:16px">
+      <button class="btn btn-reset" onclick="resetAll()">&#x21BA; Reset Everything</button>
+    </div>
   </div>
 </div>
-
-<!-- ======= MAIN APP ======= -->
-<div id="mainApp">
-  <div class="container">
-
-    <div class="header">
-      <div class="header h1" style="font-family:'Press Start 2P',monospace;font-size:clamp(14px,3.5vw,24px);color:var(--neon-yellow);text-shadow:0 0 10px var(--neon-yellow),0 0 30px rgba(255,230,0,.4);line-height:1.6;margin-bottom:6px;animation:flicker 5s infinite;">🎮 GAME ON!</div>
-      <div class="header-sub">Prize Giveaway Drawing</div>
-      <div class="prize-badges">
-        <div class="prize-badge">🏆 Prize 1</div>
-        <div class="prize-badge">🎯 Prize 2</div>
-      </div>
-    </div>
-
-    <div class="status-bar">
-      <div class="status-dot" id="statusDot"></div>
-      <span class="status-text" id="statusText">Starting...</span>
-    </div>
-
-    <div class="participant-banner" id="participantBanner">
-      📱 <strong>Participant view</strong> — Enter your name and it appears on the big screen instantly!
-    </div>
-
-    <!-- Entry -->
-    <div class="card card-entry">
-      <div class="card-title">Enter Your Name to Win</div>
-      <div class="input-row">
-        <input type="text" class="name-input" id="nameInput" placeholder="Type your name here..." maxlength="40" autocomplete="off" />
-        <button class="btn btn-add" onclick="addPlayer()">+ Add Me!</button>
-      </div>
-    </div>
-
-    <!-- Players -->
-    <div class="card card-players">
-      <div class="card-title">Players in the Drawing</div>
-      <div class="players-grid" id="playersList">
-        <div class="empty-state">No players yet — be the first! 🎮</div>
-      </div>
-      <div class="player-count" id="playerCount"></div>
-    </div>
-
-    <!-- Draw (presenter only) -->
-    <div class="card card-draw" id="drawCard">
-      <div class="card-title">🎰 Draw a Winner</div>
-      <div class="slot-display" id="slotDisplay"></div>
-      <div class="draw-controls">
-        <button class="btn btn-draw" id="draw1Btn" onclick="drawWinner(1)" disabled>🏆 Draw Prize 1</button>
-        <button class="btn btn-draw" id="draw2Btn" onclick="drawWinner(2)" disabled>🎯 Draw Prize 2</button>
-      </div>
-      <div class="winner-area" id="winnerArea"></div>
-      <div style="margin-top:16px">
-        <button class="btn btn-reset" onclick="resetAll()">↺ Reset Everything</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
-<!-- Firebase -->
 <script type="module">
-  import { initializeApp, getApps, getApp }       from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { initializeApp, getApps, getApp }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getDatabase, ref, onValue, push, set, remove }
-                                                  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-  function safeInitApp(config) {
-    if (getApps().length > 0) return getApp();
-    return initializeApp(config);
-  }
-
-  /* ── Hardcoded Firebase Config ── */
-  const FIREBASE_CONFIG = {
+  const FB_CONFIG = {
     apiKey:      "AIzaSyCcB6t83cfOULUXixRcYWl9vsBdADWxn3s",
     projectId:   "game-on-giveaway",
     databaseURL: "https://game-on-giveaway-default-rtdb.firebaseio.com"
   };
 
-  /* ── State ── */
+  const params      = new URLSearchParams(window.location.search);
+  const isPresenter = params.get('host') === 'gameOn2025';
+
   let players     = {};
   let winners     = [];
   let isAnimating = false;
   let db          = null;
-  let isPresenter = true;
-  let isFirebase  = true;
 
-  /* ── DOM ── */
   const nameInput         = document.getElementById('nameInput');
   const playersList       = document.getElementById('playersList');
-  const playerCount       = document.getElementById('playerCount');
+  const playerCountEl     = document.getElementById('playerCount');
   const draw1Btn          = document.getElementById('draw1Btn');
   const draw2Btn          = document.getElementById('draw2Btn');
   const slotDisplay       = document.getElementById('slotDisplay');
@@ -608,176 +200,113 @@
   const participantBanner = document.getElementById('participantBanner');
 
   nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') addPlayer(); });
+  window.addPlayer    = addPlayer;
+  window.removePlayer = removePlayer;
+  window.drawWinner   = drawWinner;
+  window.resetAll     = resetAll;
 
-  /* ── Exposed to onclick ── */
-  window.addPlayer   = addPlayer;
-  window.removePlayer= removePlayer;
-  window.drawWinner  = drawWinner;
-  window.resetAll    = resetAll;
-
-  /* ── Auto-launch with hardcoded config ── */
-  (function autoLaunch() {
-    try {
-      const app = safeInitApp(FIREBASE_CONFIG);
-      db = getDatabase(app);
-      document.getElementById('setupScreen').style.display = 'none';
-      document.getElementById('mainApp').style.display = 'block';
-      setStatus('live', 'Live! Participants can enter names now \u{1F389}');
-      listenFirebase();
-    } catch(err) {
-      console.error('Firebase launch error:', err);
-      setStatus('error', 'Connection error — refresh and try again');
+  try {
+    const app = getApps().length ? getApp() : initializeApp(FB_CONFIG);
+    db = getDatabase(app);
+    if (isPresenter) {
+      drawCard.style.display = 'block';
+      setStatus('live', 'Presenter mode -- Live and ready!');
+    } else {
+      participantBanner.style.display = 'block';
+      setStatus('live', 'Live -- enter your name to win!');
     }
-  })();
+    listenFirebase();
+  } catch(err) {
+    console.error(err);
+    setStatus('error', 'Connection error -- please refresh');
+  }
 
-  /* ─────────────────────────────────────────
-     FIREBASE LISTENERS
-  ───────────────────────────────────────── */
   function listenFirebase() {
     onValue(ref(db, 'players'), snap => {
       players = snap.val() || {};
       renderPlayers();
       refreshButtons();
     });
-
     onValue(ref(db, 'winners'), snap => {
       const data = snap.val();
       winners = data ? Object.values(data) : [];
-      renderWinners();
+      if (isPresenter) renderWinners();
       refreshButtons();
     });
   }
 
-  /* ─────────────────────────────────────────
-     ADD PLAYER
-  ───────────────────────────────────────── */
   function addPlayer() {
     const name = nameInput.value.trim();
     if (!name) return;
-
     const existing = Object.values(players).map(n => n.toLowerCase());
-    if (existing.includes(name.toLowerCase())) { toast('⚠️ That name is already in!'); return; }
-
-    if (isFirebase && db) {
-      push(ref(db, 'players'), name);
-    } else {
-      players['local_' + Date.now()] = name;
-      renderPlayers();
-      refreshButtons();
-    }
-
+    if (existing.includes(name.toLowerCase())) { showToast('That name is already in!'); return; }
+    push(ref(db, 'players'), name);
     nameInput.value = '';
     nameInput.focus();
-    toast('✅ ' + name + ' is in the drawing!');
+    showToast('You are in the drawing!');
   }
 
-  /* ─────────────────────────────────────────
-     REMOVE PLAYER
-  ───────────────────────────────────────── */
   function removePlayer(key) {
-    if (isFirebase && db) {
-      remove(ref(db, 'players/' + key));
-    } else {
-      delete players[key];
-      renderPlayers();
-      refreshButtons();
-    }
+    remove(ref(db, 'players/' + key));
   }
 
-  /* ─────────────────────────────────────────
-     RENDER PLAYERS
-  ───────────────────────────────────────── */
   function renderPlayers() {
     const entries = Object.entries(players);
     if (!entries.length) {
-      playersList.innerHTML = '<div class="empty-state">No players yet — be the first! 🎮</div>';
-      playerCount.textContent = '';
+      playersList.innerHTML = '<div class="empty-state">No players yet -- be the first!</div>';
+      playerCountEl.textContent = '';
       return;
     }
     playersList.innerHTML = entries.map(([key, name]) => {
       const won = winners.includes(name);
       const rmBtn = isPresenter
-        ? `<button class="remove-btn" onclick="removePlayer('${key.replace(/'/g,"\\'")}')">✕</button>`
+        ? '<button class="remove-btn" onclick="removePlayer(\'' + key.replace(/'/g,"\\'") + '\')">x</button>'
         : '';
-      return `<div class="player-tag${won ? ' is-winner' : ''}">${name}${won ? ' 🏆' : ''}${rmBtn}</div>`;
+      return '<div class="player-tag' + (won ? ' is-winner' : '') + '">' + name + (won ? ' (W)' : '') + rmBtn + '</div>';
     }).join('');
-    playerCount.textContent = entries.length + ' player' + (entries.length === 1 ? '' : 's') + ' entered';
+    playerCountEl.textContent = entries.length + ' player' + (entries.length === 1 ? '' : 's') + ' entered';
   }
 
-  /* ─────────────────────────────────────────
-     RENDER WINNERS
-  ───────────────────────────────────────── */
   function renderWinners() {
     if (!winners.length) { winnerArea.innerHTML = ''; return; }
-    winnerArea.innerHTML = winners.map((name, i) => `
-      <div class="winner-card">
-        <div class="winner-label">🏅 PRIZE ${i + 1} WINNER</div>
-        <div class="winner-name">
-          <span class="bounce">🎉</span>
-          ${name}
-          <span class="bounce" style="animation-delay:.2s">🎉</span>
-        </div>
-      </div>`).join('');
+    winnerArea.innerHTML = winners.map((name, i) =>
+      '<div class="winner-card"><div class="winner-label">PRIZE ' + (i+1) + ' WINNER</div>' +
+      '<div class="winner-name"><span class="bounce">&#x1F389;</span> ' + name + ' <span class="bounce" style="animation-delay:.2s">&#x1F389;</span></div></div>'
+    ).join('');
   }
 
-  /* ─────────────────────────────────────────
-     DRAW WINNER
-  ───────────────────────────────────────── */
   function drawWinner(prizeNum) {
     const pool = Object.values(players).filter(n => !winners.includes(n));
     if (!pool.length || isAnimating) return;
-
     isAnimating = true;
     draw1Btn.disabled = true;
     draw2Btn.disabled = true;
-
     slotDisplay.classList.add('spinning');
     slotDisplay.style.display = 'flex';
-
     let tick = 0;
-    const frames = 34;
     const id = setInterval(() => {
       slotDisplay.textContent = pool[Math.floor(Math.random() * pool.length)];
       tick++;
-      if (tick >= frames) {
+      if (tick >= 34) {
         clearInterval(id);
         slotDisplay.classList.remove('spinning');
         slotDisplay.style.display = 'none';
-
         const winner = pool[Math.floor(Math.random() * pool.length)];
         isAnimating = false;
-
-        if (isFirebase && db) {
-          push(ref(db, 'winners'), winner);
-        } else {
-          winners.push(winner);
-          renderWinners();
-          refreshButtons();
-        }
-
-        toast('🎊 ' + winner + ' wins Prize ' + prizeNum + '!');
+        push(ref(db, 'winners'), winner);
+        showToast('Winner: ' + winner + ' - Prize ' + prizeNum);
       }
     }, 80);
   }
 
-  /* ─────────────────────────────────────────
-     RESET
-  ───────────────────────────────────────── */
   function resetAll() {
-    if (!confirm('Reset everything and start a fresh drawing?')) return;
-    if (isFirebase && db) {
-      set(ref(db, 'players'), null);
-      set(ref(db, 'winners'), null);
-    } else {
-      players = {}; winners = [];
-      renderPlayers(); renderWinners(); refreshButtons();
-    }
-    toast('↺ Reset! Ready for a new drawing.');
+    if (!confirm('Reset everything and start fresh?')) return;
+    set(ref(db, 'players'), null);
+    set(ref(db, 'winners'), null);
+    winnerArea.innerHTML = '';
+    showToast('Reset! Ready for a new drawing.');
   }
 
-  /* ─────────────────────────────────────────
-     HELPERS
-  ───────────────────────────────────────── */
   function refreshButtons() {
     if (!isPresenter) return;
     const pool = Object.values(players).filter(n => !winners.includes(n));
@@ -790,7 +319,7 @@
     statusText.textContent = msg;
   }
 
-  function toast(msg) {
+  function showToast(msg) {
     const el = document.getElementById('toast');
     el.textContent = msg;
     el.classList.add('show');
